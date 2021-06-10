@@ -8,18 +8,45 @@
 
 import Foundation
 
-enum typeOfCar {
+enum TypeOfCar {
     case ford
     case honda
     case audi
     case mazda
 }
-
-class Car {
+protocol CarProtocol {
+    var color: String? {get set}
+    var dateManufacture: Date? { get set}
+    var capacity: String? {get set}
+}
+class Car : CarProtocol {
     var	color: String?
     var dateManufacture: Date?
     var capacity: String?
-    
+    	
+}
+
+class CarFactory{
+    class func createCar( type: TypeOfCar) -> CarProtocol {
+        switch type {
+        case .audi:
+            let audi = Audi()
+            audi.price = "999"
+            return audi
+         case .honda:
+            let honda = Honda()
+            honda.price = "9991"
+            return honda
+        case .mazda:
+            let mazda = Mazda()
+            mazda.price = "9001"
+            return mazda
+        case .ford:
+            let ford = Ford()
+            ford.price = "4531"
+            return ford
+        }
+    }
 }
 
 class Ford: Car, StrategyProtocol {
@@ -70,8 +97,8 @@ protocol StrategyProtocol {
 
 class ContextStrategy {
     var strategy: StrategyProtocol?
-    func test (st : StrategyProtocol) {
-        self.strategy = st
+    func setCar (car : StrategyProtocol) {
+        self.strategy = car
     }
     
     func testGo() {
@@ -79,16 +106,9 @@ class ContextStrategy {
     }
 }
 
-class Main {
-    func main () {
-        let context = ContextStrategy()
-        context.test(st: Mazda())
-        context.testGo()
-    }
-}
-
+ 
 protocol TypeOfCarProtocol {
-    var style : typeOfCar { get set }
+    var style : TypeOfCar { get set }
     
 }
 

@@ -9,31 +9,29 @@
 import Foundation
 
 class TestModel: NSObject {
-    var type : typeOfCar?
+    var type : TypeOfCar?
     var name: String?
-    var age: String?
-    
+    var price: String?
+    var model: CarProtocol?
     override init() {
         super.init()
     }
     
-    func setupModel(_ type2: typeOfCar){
-        switch type2 { 
-        case .honda:
+    func setupModel(_ car: CarProtocol ){
+        model = car
+        if let car = model as? Honda {
             self.name = "Honda"
-             return
-        case .audi:
+            price = car.price
+        } else if let car = model as? Audi {
             self.name = "Audi"
-            return
-        case .ford:
+            price = car.price
+        } else  if let car = model as?   Ford {
             self.name = "Ford"
-            return
-        case .mazda:
+            price = car.price
+        } else  if let car = model as? Mazda {
             self.name = "Mazda"
-            return
-        default:
-            self.name = "..."
-            return
+            price = car.price
         }
+        
     }
 }

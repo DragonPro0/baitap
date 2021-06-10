@@ -23,20 +23,13 @@ class TestCell: UICollectionViewCell {
         go(model?.type ?? .honda)
     }
     
-    func go(_ name: typeOfCar) {
-        let context = ContextStrategy()
+    func go(_ name: TypeOfCar) {
         
-        switch name {
-        case .honda:
-            context.test(st: Honda())
-        case .audi:		
-            context.test(st: Audi())
-        case .ford:
-            context.test(st: Ford())
-        case .mazda:
-            context.test(st: Mazda())
+        guard  let car = model?.model as? StrategyProtocol else {
+            return
         }
-        
+        let context = ContextStrategy()
+        context.setCar(car: car)
         context.testGo()
         
     }
@@ -44,7 +37,7 @@ class TestCell: UICollectionViewCell {
     func setupView(){
         
         lblBot.text = model?.name
-        lblTop.text = model?.age
+        lblTop.text = model?.price
         
     }
     

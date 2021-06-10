@@ -20,7 +20,7 @@ class ViewController: UIViewController {
      
     var list = [TestModel]()
     var section = ListSection()
-    let listCar:[typeOfCar] = [ .honda, .audi, .ford, .mazda ]
+    let listCar:[TypeOfCar] = [ .honda, .audi, .ford, .mazda ]
     override func viewDidLoad() {
         super.viewDidLoad()
         setupData()
@@ -32,12 +32,13 @@ class ViewController: UIViewController {
     }
     
     func setupData() {
+        
+      
+        
         for i in 0...3 {
-            let model = TestModel()
-            let type = listCar[i]
-            model.type = listCar[i]
-            model.age = "\(i)"
-            model.setupModel(type) 
+            let model = TestModel() 
+            let car =  CarFactory.createCar(type: listCar[i]) 
+            model.setupModel(car)
             list.append(model)
         }
     }
